@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Natijalar</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .results-panel {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 900px;
+      animation: fadeIn 1s ease;
+    }
+    .results-panel h2 {
+      margin-top: 0;
+      color: #fff;
+    }
+    .results-panel a.back {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .results-panel a.back:hover {
+      color: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #444;
+      text-align: left;
+    }
+    th {
+      background-color: #5563de;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background-color: #333;
+    }
+    tr:hover {
+      background-color: #444;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:700px){
+      .results-panel{
+        padding: 1.5rem 1rem;
+      }
+      table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="results-panel">
+    <h2>Test natijalari</h2>
+    <a class="back" href="{{ url_for('admin_dashboard') }}">⬅ Orqaga</a>
+    <table>
+      <tr>
+        <th>Foydalanuvchi</th>
+        <th>Ball</th>
+        <th>Yechgan sana</th>
+      </tr>
+      {% for r in results %}
+      <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>

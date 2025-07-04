@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .dashboard {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    .dashboard h2 {
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+    .dashboard ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dashboard ul li {
+      margin: 1rem 0;
+    }
+    .dashboard ul li a {
+      display: block;
+      padding: 0.75rem;
+      border-radius: 10px;
+      background: #5563de;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .dashboard ul li a:hover {
+      background: #3c48b7;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:600px){
+      .dashboard{
+        padding: 1.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Admin Panel - {{ username }}</h2>
+    <ul>
+      <li><a href="{{ url_for('manage_users') }}">👥 Foydalanuvchilarni boshqarish</a></li>
+      <li><a href="{{ url_for('manage_questions') }}">❓ Savollarni boshqarish</a></li>
+      <li><a href="{{ url_for('view_results') }}">📊 Natijalarni ko‘rish</a></li>
+      <li><a href="{{ url_for('logout') }}">🚪 Chiqish</a></li>
+    </ul>
+  </div>
+</body>
+</html>

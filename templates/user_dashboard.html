@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Panel</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .user-panel {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    .user-panel h2 {
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .user-panel p {
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    .user-panel button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background: #5563de;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .user-panel button:hover {
+      background: #3c48b7;
+    }
+    .user-panel a.logout {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .user-panel a.logout:hover {
+      color: #fff;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:600px){
+      .user-panel{
+        padding: 1.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="user-panel">
+    <h2>Test Panel - {{ username }}</h2>
+    <p>Testni boshlash uchun pastdagi tugmani bosing.</p>
+    <form action="{{ url_for('start_test') }}">
+      <button type="submit">Testni boshlash</button>
+    </form>
+    <a class="logout" href="{{ url_for('logout') }}">🚪 Chiqish</a>
+  </div>
+</body>
+</html>

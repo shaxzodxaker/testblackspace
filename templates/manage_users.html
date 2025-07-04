@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Foydalanuvchilar boshqaruvi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .user-panel {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 700px;
+      animation: fadeIn 1s ease;
+    }
+    .user-panel h2, .user-panel h3 {
+      color: #fff;
+      margin-top: 0;
+    }
+    .user-panel a.back {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .user-panel a.back:hover {
+      color: #fff;
+    }
+    .user-panel input[type="text"],
+    .user-panel input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+      border-radius: 10px;
+      transition: border-color 0.3s ease;
+    }
+    .user-panel input:focus {
+      border-color: #5563de;
+      outline: none;
+    }
+    .user-panel button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background: #5563de;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .user-panel button:hover {
+      background: #3c48b7;
+    }
+    .messages {
+      color: green;
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .user-list {
+      margin-top: 2rem;
+      list-style: none;
+      padding: 0;
+    }
+    .user-list li {
+      background: #333;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .user-list li a {
+      color: #ff5c5c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .user-list li a:hover {
+      color: #ff2c2c;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:700px){
+      .user-panel{
+        padding: 1.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="user-panel">
+    <h2>Foydalanuvchilar boshqaruvi</h2>
+    <a class="back" href="{{ url_for('admin_dashboard') }}">⬅ Orqaga</a>
+
+    <h3>Yangi foydalanuvchi qo‘shish</h3>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="messages">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="POST">
+      <input type="text" name="new_username" placeholder="Foydalanuvchi nomi" required />
+      <input type="password" name="new_password" placeholder="Parol" required />
+      <button type="submit">Qo‘shish</button>
+    </form>
+
+    <h3>Mavjud foydalanuvchilar</h3>
+    <ul class="user-list">
+      {% for user in users %}
+        <li>
+          {{ user[1] }} 
+          <a href="{{ url_for('delete_user', user_id=user[0]) }}">🗑 O‘chir</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

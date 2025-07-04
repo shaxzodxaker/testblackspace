@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Savollar boshqaruvi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .question-panel {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 700px;
+      animation: fadeIn 1s ease;
+    }
+    .question-panel h2, .question-panel h3 {
+      color: #fff;
+      margin-top: 0;
+    }
+    .question-panel a.back {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .question-panel a.back:hover {
+      color: #fff;
+    }
+    .question-panel textarea,
+    .question-panel input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+      border-radius: 10px;
+      transition: border-color 0.3s ease;
+    }
+    .question-panel textarea:focus,
+    .question-panel input[type="text"]:focus {
+      border-color: #5563de;
+      outline: none;
+    }
+    .question-panel button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background: #5563de;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .question-panel button:hover {
+      background: #3c48b7;
+    }
+    .messages {
+      color: green;
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .question-list {
+      margin-top: 2rem;
+      list-style: none;
+      padding: 0;
+    }
+    .question-list li {
+      background: #333;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .question-list li a {
+      color: #ff5c5c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .question-list li a:hover {
+      color: #ff2c2c;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:700px){
+      .question-panel{
+        padding: 1.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="question-panel">
+    <h2>Savollar boshqaruvi</h2>
+    <a class="back" href="{{ url_for('admin_dashboard') }}">⬅ Orqaga</a>
+
+    <h3>Yangi savol qo‘shish</h3>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="messages">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="POST">
+      <textarea name="question_text" placeholder="Savol matni" required></textarea>
+      <input type="text" name="option_a" placeholder="A javobi" required />
+      <input type="text" name="option_b" placeholder="B javobi" required />
+      <input type="text" name="option_c" placeholder="C javobi" required />
+      <input type="text" name="option_d" placeholder="D javobi" required />
+      <input type="text" name="correct_answer" maxlength="1" placeholder="To‘g‘ri javob (A/B/C/D)" required />
+      <button type="submit">Qo‘shish</button>
+    </form>
+
+    <h3>Mavjud savollar</h3>
+    <ul class="question-list">
+      {% for q in questions %}
+        <li>
+          {{ q[1] }} 
+          <a href="{{ url_for('delete_question', q_id=q[0]) }}">🗑 O‘chir</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

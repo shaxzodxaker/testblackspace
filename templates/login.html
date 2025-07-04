@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0c0c0c, #1b1b1b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-container {
+      background: #111;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: #eee;
+      animation: fadeIn 1s ease;
+    }
+    .login-container img {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
+    .login-container h2 {
+      margin-bottom: 0.5rem;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .login-container p {
+      margin-bottom: 1.5rem;
+      color: #aaa;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+      border-radius: 10px;
+      transition: border-color 0.3s ease;
+    }
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+      border-color: #5563de;
+      outline: none;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: #5563de;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .login-container button:hover {
+      background: #3c48b7;
+    }
+    .messages {
+      color: red;
+      margin-bottom: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- logo image -->
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="BLACK SPACE Logo">
+    <!-- logo text -->
+    <h2>BLACK SPACE</h2>
+    <p>YOUR FUTURE SECURITY</p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="messages">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="POST">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>

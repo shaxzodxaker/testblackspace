@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Savol {{ idx }} / {{ total }}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1b1b1b, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      user-select: none;
+    }
+    .question-panel {
+      background: #222;
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 600px;
+      animation: fadeIn 1s ease;
+    }
+    .question-panel h3 {
+      margin-top: 0;
+      color: #fff;
+    }
+    .question-panel p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .question-panel label {
+      display: block;
+      margin: 0.75rem 0;
+      background: #333;
+      padding: 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .question-panel label:hover {
+      background: #444;
+    }
+    .question-panel input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+    .question-panel button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background: #5563de;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+    .question-panel button:hover {
+      background: #3c48b7;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media(max-width:600px){
+      .question-panel{
+        padding: 1.5rem 2rem;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'c' || e.key === 'u')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="question-panel">
+    <h3>Savol {{ idx }} / {{ total }}</h3>
+    <p>{{ question.question_text }}</p>
+    <form method="POST">
+      <label><input type="radio" name="answer" value="A" required> {{ question.option_a }}</label>
+      <label><input type="radio" name="answer" value="B"> {{ question.option_b }}</label>
+      <label><input type="radio" name="answer" value="C"> {{ question.option_c }}</label>
+      <label><input type="radio" name="answer" value="D"> {{ question.option_d }}</label>
+      <button type="submit">Yuborish</button>
+    </form>
+  </div>
+</body>
+</html>
